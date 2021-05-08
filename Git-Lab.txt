@@ -1,0 +1,198 @@
+Step01      git --version( check git version)
+Step02      pwd(present working directory)
+Step03      mkdir git
+Step04      cd git
+Step05      mkdir project
+Step06      cd project
+Step07      pwd
+Step08      git init
+Step09      ll -al
+Step11      vi test.txt
+Step12      ll
+Step13      git status
+Step14      git add test.txt
+Step15      git status
+Step16      git commit -m "test"
+Step17      git config --global user.name "GDSS"
+            git config --global user.email "hr@GDSS.in" 
+Step18      git status
+Step19      git log
+Step20      git log --online
+Step21      git log --oneline
+Step22      git ls-files
+Step23      vi test2
+Step24      ll
+Step25      git status
+Step26      git add index2.html
+Step27      git add test2
+Step28      git commit -m "second commit"
+Step29      git status
+Step30      git ls-files
+Step31      git log(show all commit)
+Step32      git log --oneline(last comit)
+Step33      git show d287bde(commit id)
+Step34      git ls-files
+Step35      git rm test.txt (delete file from local repo and working directory)
+Step36      git status
+Step37      git ls-files
+Step38      git commit -m "deleting file"
+Step39      git status
+Step40      git rm --cached test1.txt(delete file from local repo only)
+Step41      ls
+Step42      git ls-files
+Step43      vi .gitignore
+Step44      ** write the file name file3.txt in .gitignore file and save it
+Step45      git status
+Step46      git add .gitignore
+Step47      git commit -m "adding.gitignore"
+Step48      git commit --amend -m "changing commit message"
+Step49      git log --oneline
+Step50      
+Step51      
+Step52      
+Step53      
+Step54      
+Step55      
+Step56      git tag --a 1422104 -m "adding tags"
+Step57      git log --oneline
+Step58      git tag (show the files with tag only) 
+Step59      git tag --a v1.0 04e0cbd -m "adding tags"
+Step60      git tag --a v1.0 e7bd1bb -m "adding tags"
+Step61      git revert e7bd1bb(revert the changes)
+Step62      git log --oneline
+Step63      git reset --hard d287bde
+Step64      git log --oneline
+Step65      git ls-files
+
+Step66      git branch
+Step67      git checkout -b b1 (copy the data from master branch)
+Step68      git branch
+Step69      
+Step70      
+Step71      git branch
+Step72      git checkout master(switch to master branch)
+Step73      git branch
+Step74      pwd
+Step75      ll -al
+Step76      git branch
+Step77      git log --oneline master
+Step78      git log --oneline b1
+Step79      git branch
+Step80      ls
+Step81      touch file4.txt
+Step82      
+Step83      
+Step84      git add file4.txt
+Step85      git commit -m "adding file4.txt"
+Step86      git status
+Step87      git ls-files
+Step88      git checkout master
+Step89      git checkout b1
+Step90      git ls-files
+Step91      git checkout master
+Step92      git log --oneline master
+Step93      vi file4.txt
+Step94      git commit -a -m "adding some changes"
+Step95      git status
+Step96      git branch
+Step97      git ls-files
+Step98      git checkout b1
+Step99      git merge master
+Step100     git ls-files
+Step101     git status
+Step102     git branch
+Step103     vi kush.txt
+Step104     git add kush.txt
+Step105     git commit -m "ading kush.txt file"
+Step106     git status
+Step107     ls-files
+Step108     git branch
+Step109     git checkout master
+Step110    git ls-files
+Step111    git merge b1
+Step112    git ls-files
+Step113    git branch
+Step114    git branch -d b1(delete a b1 branch)
+Step115    git branch
+Step116    got log --oneline b1
+Step117    git log --oneline b1
+Step118    git log --oneline master
+Step119    git log master
+Step120    !
+Step121    git log b1
+Step122    pwd
+Step123    git status
+Step124    git ls-files
+Step125    vi kush.txt
+Step126    vi test1.txt
+Step127    git status
+Step127    git stash
+Step128    git status
+Step129    git stash list
+Step130    git show stash@{0}
+Step131    git stash pop
+Step132    git status
+Step133    git stash
+Step134    git status
+Step135    git ls-files
+Step136    vi kush.txt 
+Step137    git stash list
+Step138    git show stash@{0}
+Step139    git stash pop
+Step140    git status
+Step141    vi kush.txt 
+Step142    ls
+Step143    git add kush.txt
+Step144    git coomit -m "pushing changes"
+Step145    git commit -m "pushing changes"
+Step146    git status
+Step147    git stash
+Step148    git stash list
+Step149    git show stash@{0}
+Step150    git stash pop
+Step151    git status
+Step152    git commit -a -m "pushinh changes"
+Step153    git status
+Step154    git log --oneline
+Step155    git diff 9d3af89 d1ac308
+Step156    git status
+Step157    ls
+Step158    vi file4.txt
+Step159    git stash
+Step160    git ls-files
+Step161    vi file4.txt 
+Step162    git stash pop
+Step163    vi file4.txt 
+Step164    git remote add origin https://github.com/devopstrainer1/class.git
+           git remote add test1 https://github.com/gdssclasses/testgit.git
+Step165    git branch
+Step166    git push test1 master
+Step167    git checkout -b b1
+Step168    git push origin b1
+Step169    git branch
+Step170    git ls-files
+Step171    git remote add origin https://github.com/devopstrainer1/class.git
+Step172    git remote -v
+Step173    git remote add github https://github.com/devopstrainer1/devops.git
+Step174    git push github master
+Step175    git remote -v
+Step176    git remote add gitlab https://github.com/devopstrainer1/devops1.git
+Step177    git push gitlab master
+Step178    git pull gitlab master
+Step179    ls
+Step180    git pull gitlab master
+Step181    git remote -v
+Step182    git pull gitlab master
+Step183    git log --oneline
+Step184    ls
+Step185    git rm kush.txt
+Step186    git status
+---------------------------------------------------
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/gdssclasses/Devops.git
+git push -u origin master
+
+git remote add origin https://github.com/gdssclasses/Devops.git
+git push -u origin master                

@@ -1,0 +1,240 @@
+step01: Install Java
+---sudo -i  
+---which java
+ (check java version 8 before installing jenks)
+---yum install java-1.8.0-openjdk
+##set environment variable   
+---vi /etc/profile
+  
+  ##chenge in between
+    ## fi
+---export JAVA_HOME=/bin/java
+---export PATH=$JAVA_HOME/bin:$PATH
+    ##export path user logname mail 
+    ## chenge in between
+---source /etc/profile (Reload the profile)
+  
+step02: Install jenkins  
+---yum install -y wget (download packets from any url on the web)  
+---sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+  (from jenkins side for as per OS)
+---sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+  (from jenkins side for as per OS)
+---yum install -y jenkins (Install jenkins)
+
+---systemctl start jenkins (start jenkins) 
+---systemctl restart jenkins (restart jenkins)
+---systemctl status jenkins(check jenkins status)
+---systemctl enable jenkins(run alway)
+---#run the kenkins on browser with ip address with port number(ex:- http://35.236.28.134:8080)
+---#change the default port in jenkins
+---cd /etc/sysconfig/
+---vi jenkins
+---# go down and find JENKINS_PORT="8080"(change the port number here) 
+web setting
+step03: ip addr show
+
+step04: Create and run jobs in jenkins
+
+---#create new jobs
+
+---click new items(job1)
+---Write item name(ex:-job1 )
+---select -Freestyle project 
+--- click ok
+---#select build tab
+---select execute shell (from option list)
+echo "we are learning jenkins "
+---click apply button
+---click save button
+--- select Build Now (run the jobs)
+--- show the job1 detail in console output 
+
+---click new items(job2)
+---Write item name(ex:-job2 )
+---select -Freestyle project 
+--- click ok
+---#select build tab
+---select execute shell (from option list)
+date >> /tmp/date.txt
+echo "This is second test job2"
+---click apply button
+---click save button
+--- select Build Now (run the jobs)
+--- show the job2 detail in console output
+--- cd /tmp 
+
+---#create user in jenkins
+--- click manage jenkins
+--- click manage users
+--- click user
+---# user name ,password, full name , email, (ex: -test ,admin)
+
+
+---# add audit log
+--- click manage plugin
+--- select "audit Trail" and install
+--- select "configure system"
+--- select "Audit Trail" 
+---- add log location "/tmp/audit"
+---- run the job and validate in "/tmp/audit" with "audit.0"
+
+---# Notification system
+---ghanshyamj2020@gmail.com
+---smtp.gmail.com
+---port 465
+
+---# Triggers job
+---select source code management
+--- in build trigger select "build periodically "
+---put "*/5 * * * *"(https://crontab.guru/every-5-minutes) in schedule 
+
+--- click manage jenkins
+--- click Configure Global Security
+--- LDAP (used in company to manage Authantication purpose)
+--- 
+-------------------------------------------------------------------
+Trigger job using Git
+----------------------
+-- source code
+--- git with path(https://github.com/ghanshyamdevops/RajatDev.git)
+--- for public repo no id and password required( if private click add button and write user id and password) 
+---# run the build and verify the workspace for job-- what you downloaded
+---# same you can verify in console in 
+
+----# trigeer job for every commit in git
+--- select poll scm in Build Triggers tab and put (*/5 * * * *)
+
+
+-----------------------
+Create a pipe line 
+---------------------
+process - compile the source code --> code review job ---> QA unit test job -->
+
+step01- install maven
+      - Select to "manage jenkin"
+      - "select "global tool confihration"  
+      - click "ADD JDK " button
+      - write "myjava---> any name can be write" in name box
+      - select check box "Install automatically"
+      - select java version from drop down option
+      - selct check box "I agree to the Java SE Development Kit License Agreement" option
+      - cleck "Please enter your username/password" (gdssclasses@gmail.com , India@2020)
+      - write user name and password( for new  create new user and password on oracle site)
+      
+      -click "Add Maven" button
+      -write any name "mymaven" 
+      - click "save " button
+ step02- #Create compile job
+       -create new job(DevCompile)
+       - select free style project
+       - click button "ok"
+       - go source code management and click "Git) option 
+       - https://github.com/gdssclasses/DevOpsClassCodes-1.git(give the source code library path)
+       -#go to Build tab
+       - select "invoke top-level Maven target"
+       - select "mymaven" in Maven Version 
+       -  select goal name as "compile" 
+       - verify in console - /var/lib/jenkins/workspace/DevCompile/target/classes
+       
+       #Create DevCodeReview job
+       -create new job name -DevCodeReview
+       - select free style project
+       - click button "ok"
+       - go source code management and click "Git) option 
+       - https://github.com/ghanshyamdevops/DevOpsClassCodes-1.git(give the source code library path)
+       -#go to Build tab
+       - select "invoke top-level Maven target"
+       - select "mymaven" in Maven Version 
+       -  select goal name as "-P metrics pmd:pmd"  DevCompile job -P metrics pmd:pmd 
+       - verify in console 
+       -verify in workspace and verify the pmd.xml file
+       - install the plugin "pmd"	
+       - go to job and select in "post build action" 
+       - put in PMD result "target/pmd.xml" 
+       -run the job
+       -click the "PMD warning " and see the report in html format
+      
+    #Create QAUnitTest job
+       -create new job name -QAUnitTest Job
+       - select free style project
+       - click button "ok"
+       - go source code management and click "Git) option 
+       - https://github.com/MainframeGithub/DevOpsClassCodes-1.git(give the source code library path)
+       -#go to Build tab
+       - select "invoke top-level Maven target"
+       - select "mymaven" in Maven Version 
+       -  select goal name as "test"   
+       - go to job and select in "post build action" 
+       - select "Junit Test Result report"
+/target/surefire-reports/
+      - put in test report xml "target/surefire-reports/*.xml"
+      -run the job
+      - verify the "Test result" 
+-------------------------------------------------------------------------------------------------------------
+--------------------------------------------
+#Create QAPackagejob job ---> This type of job do the coverage Analysis
+       -create new job name -QAPackagejob Job
+       - select free style project
+       - click button "ok"
+       - go source code management and click "Git) option 
+       - https://github.com/ghanshyamdevops/DevOpsClassCodes-1.git(give the source code library path)
+       -#go to Build tab
+       - select "invoke top-level Maven target"
+       - select "mymaven" in Maven Version 
+       -  select goal name as "cobertura:cobertura -Dcobertura.report.format=xml"
+       - install the plugin "Cobertura"   
+       - go to job and select in "publish Coberyura coverage report" 
+       - select "target/site/cobertura/coverage.xml"
+      -run the job
+      - verify the "Coverage Report" option
+
+
+
+--run job as 
+use post build job (build another project)
+compile job --> DevCodeReview ---> QAUnitTest -- QAPackagejob
+
+-- for Graphics view
+-- install pulgin : build pipeline
+
+----------------------------
+
+--go to global security and change "Agents" check box "Random" in master 
+create a node 
+
+go to manage node
+create new node
+  - node name
+  -permanent
+
+- go to node server
+- cd /home
+mkdir jenkins
+chmod 777 jenkins
+cd jenkins
+pwd  
+"/home/jenkins"
+
+
+- install git(yum install -y git)
+-install java(yum install -y java)
+-install maven(yum install -y maven)
+-whereis java(/usr/bin/java)
+-whereis maven(/etc/maven)
+-whereis git(/usr/bin/git)
+
+select option restric job
+--------------------
+git init
+git config --global user.name "shyam"
+
+git config --global user.email "shyam@gmail.com"
+
+git remote add test02 https://github.com/ghanshyamj2020/jenkins.git
+
+https://github.com/gdssclasses/gdss.git
+git pull test02 master
+git push test02 master
+
+java -jar agent.jar -jnlpUrl http://34.67.195.198:9090/computer/test2/slave-agent.jnlp -secret dd1161d2da9f084085cb38176a232d6ba7b85c420b21f3e58468f735c264de96 -workDir "/home/jenkins"
